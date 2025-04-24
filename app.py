@@ -29,13 +29,17 @@ job_roles = ["Data Analyst", "Marketing Intern", "Software Developer", "Finance 
 selected_role = st.selectbox("Select a job role you're applying for:", job_roles)
 
 # --- RECOMMEND JOBS BUTTON ---
+from openai import OpenAI
+
+client = OpenAI(api_key="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")
+
 if st.button("🔍 Recommend Jobs"):
     if resume_file:
         resume_text = resume_file.read().decode("utf-8") if resume_file.type == "text/plain" else "(Simulated PDF content)"
 
         prompt = f"Given this resume:\n{resume_text}\n\nSuggest job recommendations for the role of {selected_role}. Give a score of fit out of 100 and explain why."
 
-        response = openai.ChatCompletion.create(
+        response =  client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}]
         )
@@ -56,7 +60,7 @@ if st.button("🗣️ Generate Ideal Answer"):
 
         prompt = f"Given the resume below, generate a strong answer to the interview question: '{question}'\n\nResume:\n{resume_text}"
 
-        response = openai.ChatCompletion.create(
+        response =  client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}]
         )
