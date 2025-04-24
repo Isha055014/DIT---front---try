@@ -9,9 +9,6 @@ Original file is located at
 ### Front Face Try
 """
 
-!pip install streamlit
-!pip install openai
-!pip install pandas
 
 import streamlit as st
 import openai
